@@ -1,0 +1,42 @@
+---
+title: "Interactive Plotly Presentation"
+author: "Your Name"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
+output:
+  ioslides_presentation:
+    self_contained: true
+---
+
+## About
+
+This deck was generated with **R Markdown** on **`r format(Sys.Date(), '%B %d, %Y')`**.  
+It includes an interactive **Plotly** scatter plot using the built-in `iris` dataset.
+
+## Interactive Plot (Plotly)
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+# Ensure plotly is available and set a CRAN mirror if needed
+if (!requireNamespace("plotly", quietly = TRUE)) {
+  rep <- getOption("repos")
+  if (is.null(rep) || length(rep) == 0 || isTRUE(rep["CRAN"] == "@CRAN@") || isTRUE(nchar(rep["CRAN"]) == 0)) {
+    options(repos = c(CRAN = "https://cloud.r-project.org"))
+  }
+  install.packages("plotly")
+}
+library(plotly)
+
+plot_ly(
+  data  = iris,
+  x     = ~Sepal.Length,
+  y     = ~Petal.Length,
+  color = ~Species,
+  type  = "scatter",
+  mode  = "markers"
+) |>
+  layout(
+    title = "Iris: Sepal vs Petal Length",
+    xaxis = list(title = "Sepal Length"),
+    yaxis = list(title = "Petal Length")
+  )
+
+
